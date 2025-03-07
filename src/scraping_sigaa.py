@@ -15,7 +15,9 @@ response = requests.get(url)
 response.encoding = 'ISO-8859-1'  # Define a codificação correta
 
 if response.status_code == 200:
-    soup = BeautifulSoup(response.text, 'html.parser')
+    # Decodificando a resposta corretamente
+    html_content = response.content.decode('ISO-8859-1', 'ignore')  
+    soup = BeautifulSoup(html_content, 'html.parser')
     
     # Encontra a tabela que contém os dados dos alunos
     table = soup.find('tbody')
@@ -34,6 +36,9 @@ if response.status_code == 200:
 
         matricula = cols[0].text.strip()
         nome_aluno = cols[1].contents[0].strip()  # Nome do aluno está na primeira posição
+
+        # Corrigindo caracteres estranhos (se necessário)
+        nome_aluno = nome_aluno.encode('ISO-8859-1').decode('utf-8', 'ignore')
 
         # Extraindo o orientador (se existir)
         orientador_tag = cols[1].find('a')
@@ -63,7 +68,7 @@ if response.status_code == 200:
     csv_path = os.path.join("data", "alunos_por_orientador.csv")
     
     # Salvando os dados no arquivo CSV dentro da pasta "data"
-    df.to_csv(csv_path, index=False)
+    df.to_csv(csv_path, index=False, encoding='utf-8-sig')  # Salva com UTF-8 para evitar problemas de acentuação
 
     print(f"Arquivo salvo com sucesso em: {csv_path}")
     print(df.head())  # Exibir os primeiros registros para conferência

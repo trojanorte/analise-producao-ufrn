@@ -155,9 +155,6 @@ def extrair_dados(driver):
 # **Executar o processo para vários alunos**
 df_alunos = pd.read_csv("data/alunos_por_orientador.csv")
 
-# **Remover entradas inválidas**
-df_alunos = df_alunos[~df_alunos["Aluno"].str.contains("Étudiant/Leader|Desconhecido|Sem Orientador", na=False, case=False)]
-
 # **Criar lista para armazenar os resultados**
 resultados = []
 
