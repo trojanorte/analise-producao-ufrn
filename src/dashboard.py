@@ -8,7 +8,7 @@ import utils.graficos as graficos
 st.set_page_config(page_title="Dashboard de Produções Acadêmicas", layout="wide")
 
 # 📌 Caminho do arquivo processado
-file_path = "c:/Users/allys/OneDrive/Documentos/GitHub/analise producao ufrn/data/alunos_producoes_separadas.csv"
+file_path = "data/alunos_producoes_separadas.csv"
 
 # 📌 Carregar os dados processados
 st.sidebar.header("⚙️ Configurações")
