@@ -1,3 +1,5 @@
+import os
+import subprocess
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -8,16 +10,24 @@ import utils.graficos as graficos
 st.set_page_config(page_title="Dashboard de Produções Acadêmicas", layout="wide")
 
 # 📌 Caminho do arquivo processado
-file_path = "data/alunos_producoes_separadas.csv"
+file_path = os.path.join(os.path.dirname(__file__), "../data/alunos_producoes_separadas.csv")
+processar_script = os.path.join(os.path.dirname(__file__), "processar_producoes.py")
+
+# 📌 Verificar se o arquivo existe e criar se necessário
+if not os.path.exists(file_path):
+    st.warning("⚠️ Arquivo de produções não encontrado. Gerando agora...")
+    try:
+        subprocess.run(["python", processar_script], check=True)
+        st.success("✅ Arquivo gerado com sucesso!")
+    except Exception as e:
+        st.error(f"❌ Erro ao gerar o arquivo: {e}")
+        st.stop()
 
 # 📌 Carregar os dados processados
 st.sidebar.header("⚙️ Configurações")
 try:
     df = pd.read_csv(file_path, encoding="utf-8")
     st.sidebar.success("✅ Dados carregados com sucesso!")
-except FileNotFoundError:
-    st.sidebar.error("❌ Erro: O arquivo não foi encontrado. Execute 'processar_producoes.py'.")
-    st.stop()
 except pd.errors.ParserError as e:
     st.sidebar.error(f"❌ Erro ao processar o CSV: {e}")
     st.stop()
@@ -40,7 +50,7 @@ col1.metric("📚 Total de Produções", len(df_filtrado))
 col2.metric("👨‍🎓 Alunos Registrados", df_filtrado["Aluno"].nunique())
 col3.metric("👨‍🏫 Orientadores Registrados", df_filtrado["Orientador"].nunique())
 
-# 📌 Exibir pré-visualização dos dados filtrados com tabela formatada
+# 📌 Exibir pré-visualização dos dados filtrados
 st.markdown("### 🔍 Dados Filtrados")
 st.dataframe(df_filtrado, use_container_width=True)
 
@@ -48,7 +58,6 @@ st.dataframe(df_filtrado, use_container_width=True)
 if df_filtrado.empty:
     st.warning("⚠️ Nenhum dado encontrado com os filtros selecionados.")
 else:
-    # 📌 Gráficos organizados em colunas para melhor visualização
     st.markdown("## 📊 Visualização dos Dados")
     col1, col2 = st.columns(2)
 
