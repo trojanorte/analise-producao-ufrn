@@ -1,90 +1,119 @@
-# Projeto: Análise da Produção Acadêmica dos Alunos da Pós-Graduação da UFRN
+# 📜 Licença e Direitos Autorais
 
-## 📌 Objetivo
-Este projeto visa **extrair, organizar e analisar** os dados dos alunos do programa de pós-graduação em Engenharia de Produção da UFRN,** separando-os por orientador** e cruzando essas informações com suas produções acadêmicas na Plataforma Lattes. O resultado final permitirá avaliar os **indicadores de produção científica, impacto acadêmico e reconhecimento**, conforme os critérios definidos no checklist do programa.
+Este projeto é licenciado sob a **Creative Commons BY-NC-ND 4.0**. Isso significa que:
+- ✅ Você pode compartilhar e utilizar os arquivos.
+- ❌ **Não pode modificar** ou criar obras derivadas.
+- ❌ **Não pode utilizar para fins comerciais.**
+
+---
+
+# 📊 Projeto: Análise da Produção Acadêmica dos Alunos da Pós-Graduação da UFRN
+
+## 🎯 Objetivo
+Este projeto visa **extrair, organizar e analisar** os dados de produção acadêmica dos alunos do Programa de Pós-Graduação em Engenharia de Produção da UFRN. Os dados são obtidos do **SIGAA** e **Plataforma Lattes**, permitindo avaliar os indicadores de produção científica, impacto acadêmico e reconhecimento institucional.
 
 ## 🔍 Etapas do Projeto
+
 ### **1️⃣ Extração de Dados do SIGAA**
-- Obter a lista de alunos e seus respectivos orientadores do site do SIGAA.
+- Obter a lista de alunos e orientadores.
 - Extrair os **4 primeiros dígitos da matrícula** para identificar o ano de ingresso.
-- Armazenar essas informações em um DataFrame (Pandas) para manipulação posterior.
+- Armazenar esses dados em um **DataFrame Pandas**.
 
-### **2️⃣ Busca de Currículos na Plataforma Lattes**
-- Automatizar a busca dos alunos na Plataforma Lattes.
-- Coletar dados sobre:
-  - Publicações científicas (artigos, congressos, eventos).
-  - Índice h e citações.
-  - Tecnologias e patentes cadastradas.
-  - **Premiações e reconhecimentos acadêmicos.**
+### **2️⃣ Coleta de Dados na Plataforma Lattes**
+- Automatizar a busca dos currículos.
+- Capturar dados sobre:
+  - **Publicações científicas** (artigos, congressos, eventos).
+  - **Índice h** e citações.
+  - **Tecnologias, patentes e premiações.**
 
-### **3️⃣ Análise Comparativa: Produção Dentro e Fora do Mestrado**
-- Utilizar o **ano de ingresso** para separar a produção acadêmica em:
-  - **Produção durante o mestrado** (publicações, eventos, patentes registradas no período).
-  - **Produção após a conclusão** (continuidade na produção científica, novos projetos e impacto acadêmico).
+### **3️⃣ Análise Comparativa: Produção Durante e Após o Mestrado**
+- Separar a produção acadêmica em **durante** e **após o mestrado**.
+- Analisar o impacto e continuidade da pesquisa.
 
-### **4️⃣ Geração de Relatórios e Análise dos Indicadores**
-- Contabilizar a **quantidade de publicações por aluno e orientador**.
-- Avaliar **a fração de egressos com produção relevante**.
-- Gerar um **relatório final com métricas**, como:
-  - **Índice h2 (Scopus) do corpo docente.**
-  - **Impacto econômico e social do programa.**
-  - **Internacionalização e colaboração acadêmica.**
-  - **Premiações e reconhecimentos de discentes e docentes.**
-  
+### **4️⃣ Geração de Relatórios e Indicadores**
+- Quantidade de publicações por **aluno e orientador**.
+- Fração de **egressos com produção relevante**.
+- Geração de **relatórios de impacto acadêmico**, como:
+  - **Índice h2 (Scopus)** do corpo docente.
+  - **Internacionalização e colaborações acadêmicas**.
+  - **Premiações e reconhecimentos**.
+
+---
+
 ## ⚙️ Tecnologias Utilizadas
-- **Python** para extração e análise de dados.
-- **Requests & BeautifulSoup** para raspagem de dados do SIGAA.
-- **Pandas** para manipulação e análise dos dados.
-- **Selenium (opcional)** para buscas automatizadas no Lattes.
-- **Matplotlib/Seaborn** para visualização dos resultados.
+✅ **Python** para extração e análise de dados.
+✅ **Requests & BeautifulSoup** para web scraping.
+✅ **Pandas** para manipulação e organização dos dados.
+✅ **Matplotlib & Seaborn** para visualizações gráficas.
+✅ **Streamlit & Plotly** para dashboard interativo.
+
+---
 
 ## 📂 Estrutura do Projeto
+
 ```
 /analise_producao_ufrn
-│── data/                      # Pasta com os arquivos CSV extraídos
-│── src/                       # Código-fonte do projeto
-│   ├── scraping_sigaa.py       # Script para extrair dados do SIGAA
-│   ├── busca_lattes.py         # Script para buscar produção no Lattes
-│   ├── analise_indicadores.py  # Código para gerar relatórios
-│── notebooks/                 # Jupyter Notebooks para exploração dos dados
-│── README.md                  # Documento de explicação do projeto
-│── requirements.txt            # Lista de dependências para instalação
+│── data/                      # Arquivos CSV extraídos
+│── src/                       # Código-fonte
+│   ├── scraping_sigaa.py       # Extrai dados do SIGAA
+│   ├── busca_lattes.py         # Obtém dados da Plataforma Lattes
+│   ├── processar_dados.py      # Processa e estrutura os dados
+│   ├── dashboard.py            # Interface gráfica (Streamlit)
+│── README.md                  # Documentação do projeto
+│── requirements.txt            # Dependências para instalação
 ```
 
+---
+
 ## 🚀 Como Usar
-1. **Clone o repositório:**
+
+### 📌 1. Clone o repositório:
 ```bash
 git clone https://github.com/seu-usuario/analise_producao_ufrn.git
 cd analise_producao_ufrn
 ```
-2. **Instale as dependências:**
+
+### 📌 2. Instale as dependências:
 ```bash
 pip install -r requirements.txt
 ```
-3. **Execute a raspagem de dados do SIGAA:**
+
+### 📌 3. Execute a extração de dados do SIGAA:
 ```bash
 python src/scraping_sigaa.py
 ```
-4. **Busque os currículos Lattes (manual/automatizado):**
+
+### 📌 4. Busque os currículos Lattes:
 ```bash
 python src/busca_lattes.py
 ```
-5. **Gere os relatórios analíticos:**
+
+### 📌 5. Gere os relatórios analíticos:
 ```bash
-python src/analise_indicadores.py
+python src/processar_dados.py
 ```
 
-## 📊 Resultados Esperados
-Os resultados incluirão:
-✅ **Relatórios sobre produção acadêmica** por aluno e orientador.
-✅ **Métricas do impacto científico** (artigos, eventos, índice h2).
-✅ **Análise da internacionalização e visibilidade do programa.**
-✅ **Distribuição da produção dentro e após o mestrado.**
-✅ **Premiações e reconhecimentos de discentes e docentes.**
-
-## 🤝 Contribuição
-Se você quiser contribuir com o projeto, sinta-se à vontade para fazer um **fork**, criar **pull requests** ou sugerir melhorias. 
+### 📌 6. Execute o Dashboard:
+```bash
+streamlit run src/dashboard.py
+```
 
 ---
+
+## 📊 Resultados Esperados
+✅ **Relatórios detalhados** sobre produção acadêmica.
+✅ **Métricas de impacto científico** (artigos, eventos, índice h2).
+✅ **Internacionalização e colaborações acadêmicas.**
+✅ **Distribuição da produção durante e após o mestrado.**
+✅ **Premiações e reconhecimentos acadêmicos.**
+
+---
+
+## 🤝 Contribuição
+Se quiser contribuir com o projeto, faça um **fork**, crie **pull requests** ou sugira melhorias via **Issues**.
+
+---
+
 ### 📢 Observação Importante
-Este projeto respeita os **termos de uso das plataformas SIGAA e Lattes
+Este projeto respeita os **termos de uso do SIGAA e Plataforma Lattes**. Nenhum dado é compartilhado ou utilizado para fins comerciais.
+
